@@ -28,7 +28,7 @@ def snr(radar,
         R=3389.5e3,
         stop="2036-Feb-15"):
 
-#    gain0=r.gain
+    gain0=radar.gain
     
     eph=hp.get_ephemeris(obj_id=oid,
                          start=start,
@@ -71,7 +71,8 @@ def snr(radar,
     
     mi=gidx[n.argmin(eph["r"][gidx])]
     vel0=vel[mi]
-    
+    el0=eph["el"][mi]
+    radar.gain=gain0*n.sin(n.pi*el0/180.0)
     range0=eph["r"][mi]
     spin_period=2*n.pi*R/vel0
 
@@ -286,9 +287,9 @@ def mercury():
     snr(e3d,oid="199",start="2028-06-01",stop="2028-07-01",R=2440e3)
     
     
-#moon()
-#mars()
-#venus()
+moon()
+mars()
+venus()
 mercury()
     
 # mars = 499
