@@ -53,10 +53,12 @@ def snr(radar,
     z=R*n.sin(n.pi*eph["sublat"]/180.0)
     t_s=eph["jdates"]*24*3600.0
     dt=n.diff(t_s)
+    # apparent rotation velocity
     vel=n.sqrt((n.diff(x)/dt)**2.0+(n.diff(y)/dt)**2.0+(n.diff(z)/dt)**2.0)
-    
+    # limb-to-limb velocity extent
     dop_vel=2*vel
 
+    # where is it sufficiently above the horizon
     gidx=n.where(eph["el"] > 30.0)[0]
     gidx=gidx[0:(len(gidx)-1)]
     
